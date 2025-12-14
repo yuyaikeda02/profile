@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日々の記録</title>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    /* 情報誌風デザイン */
+    body.magazine-page {
+      background: #ffffff;
+      font-family: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+    }
+
+    .magazine-main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .magazine-header {
+      padding: 60px 24px 40px;
+      text-align: center;
+      border-bottom: 3px solid #1e293b;
+      margin-bottom: 48px;
+    }
+
+    .magazine-date {
+      font-size: 14px;
+      color: #64748b;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .magazine-title {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.3;
+      margin: 0 0 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .magazine-subtitle {
+      font-size: clamp(16px, 2vw, 18px);
+      color: #475569;
+      line-height: 1.7;
+      margin: 0 0 24px;
+      font-weight: 400;
+    }
+
+    .magazine-meta {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+
+    .magazine-tag {
+      padding: 6px 14px;
+      background: #f1f5f9;
+      color: #475569;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid #e2e8f0;
+    }
+
+    .magazine-hero-image {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      margin-bottom: 48px;
+      border-radius: 0;
+    }
+
+    .magazine-content {
+      padding: 0 24px 60px;
+    }
+
+    .magazine-section {
+      margin-bottom: 48px;
+    }
+
+    .magazine-section-title {
+      font-size: clamp(20px, 3vw, 24px);
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0 0 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e2e8f0;
+      letter-spacing: -0.01em;
+    }
+
+    .magazine-text {
+      font-size: 16px;
+      line-height: 1.9;
+      color: #334155;
+      margin: 0 0 24px;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+
+    .magazine-text:last-child {
+      margin-bottom: 0;
+    }
+
+    .magazine-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 24px;
+    }
+
+    .magazine-list li {
+      padding: 12px 0 12px 24px;
+      position: relative;
+      font-size: 16px;
+      line-height: 1.9;
+      color: #334155;
+      word-break: keep-all;
+      overflow-wrap: anywhere;
+    }
+
+    .magazine-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #3b82f6;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .magazine-image {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      margin: 32px 0;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .magazine-quote {
+      border-left: 4px solid #3b82f6;
+      padding: 20px 24px;
+      margin: 32px 0;
+      background: #f8fafc;
+      font-style: italic;
+      color: #475569;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    .magazine-link {
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid #3b82f6;
+      transition: all 0.2s ease;
+    }
+
+    .magazine-link:hover {
+      color: #2563eb;
+      border-bottom-color: #2563eb;
+    }
+
+    @media (max-width: 768px) {
+      .magazine-header {
+        padding: 40px 20px 32px;
+        margin-bottom: 32px;
+      }
+
+      .magazine-hero-image {
+        height: 250px;
+        margin-bottom: 32px;
+      }
+
+      .magazine-content {
+        padding: 0 20px 40px;
+      }
+
+      .magazine-section {
+        margin-bottom: 40px;
+      }
+
+      .magazine-text {
+        font-size: 15px;
+        line-height: 1.8;
+      }
+
+      .magazine-list li {
+        font-size: 15px;
+        padding-left: 20px;
+      }
+    }
+  </style>
+</head>
+<body class="magazine-page">
+  <header>
+    <nav class="nav">
+      <div class="brand">池田 悠耶(Yuya Ikeda)</div>
+      <div class="menu">
+        <a href="./index.html">ホーム</a>
+        <a href="./profile.html">プロフィール</a>
+        <a href="./research.html">研究</a>
+        <a class="active" href="./daily.html">日々の記録</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="magazine-main">
+    <article class="magazine-header">
+      <div class="magazine-date">2025年12月12日</div>
+      <h1 class="magazine-title">Webサイトを作成しました</h1>
+    </article>
+
+    <img src="./28746947235r9.png" alt="Webサイト" class="magazine-hero-image">
+
+    <div class="magazine-content">
+    </div>
+  </main>
+
+  <footer>
+    <div>© 2025 Yuya Ikeda</div>
+  </footer>
+</body>
+</html>
+

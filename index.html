@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ホーム</title>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    /* index.html専用の学術的デザイン */
+    body.index-page {
+      background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+    }
+
+    .index-hero {
+      text-align: center;
+      padding: 100px 20px 80px;
+      position: relative;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(37, 99, 235, 0.02) 100%);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      margin-bottom: 60px;
+    }
+
+    .index-hero h1 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 700;
+      margin: 0 0 20px;
+      color: #1e293b;
+      letter-spacing: -0.5px;
+    }
+
+    .index-hero p {
+      font-size: clamp(16px, 2vw, 18px);
+      color: #475569;
+      margin: 0 auto 40px;
+      max-width: 700px;
+      line-height: 1.8;
+      font-weight: 400;
+    }
+
+    .index-badges {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    .index-badge {
+      padding: 8px 16px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      color: #475569;
+      font-weight: 500;
+      font-size: 13px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .index-badge:hover {
+      transform: translateY(-2px);
+      background: #f8fafc;
+      border-color: #3b82f6;
+      color: #3b82f6;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+    }
+
+    .index-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 60px;
+      padding: 0 20px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .index-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 36px 32px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+      border: 1px solid #e2e8f0;
+      position: relative;
+    }
+
+    .index-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.06);
+      border-color: #cbd5e1;
+    }
+
+    .index-card-icon {
+      font-size: 36px;
+      margin-bottom: 20px;
+      display: block;
+      opacity: 0.8;
+    }
+
+    .index-card h3 {
+      font-size: 22px;
+      margin: 0 0 12px;
+      color: #1e293b;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+
+    .index-card p {
+      color: #64748b;
+      line-height: 1.7;
+      margin: 0 0 24px;
+      font-size: 15px;
+    }
+
+    .index-card-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      background: #3b82f6;
+      color: white;
+      border-radius: 6px;
+      font-weight: 500;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(59, 130, 246, 0.2);
+    }
+
+    .index-card-button:hover {
+      background: #2563eb;
+      box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .index-topics {
+      margin-top: 80px;
+      padding: 0 20px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .index-topics h2 {
+      text-align: left;
+      font-size: clamp(22px, 3vw, 28px);
+      color: #1e293b;
+      margin-bottom: 32px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .index-topic-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .index-topic-item {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 20px 24px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+      border: 1px solid #e2e8f0;
+    }
+
+    .index-topic-item:hover {
+      transform: translateX(4px);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+      border-color: #cbd5e1;
+    }
+
+    .index-topic-tag {
+      padding: 6px 12px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .index-topic-tag.research {
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #dbeafe;
+    }
+
+    .index-topic-tag.news {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde68a;
+    }
+
+    .index-topic-tag.blog {
+      background: #f0fdf4;
+      color: #166534;
+      border: 1px solid #dcfce7;
+    }
+
+    .index-topic-text {
+      color: #475569;
+      flex: 1;
+      font-size: 15px;
+    }
+
+    @media (max-width: 768px) {
+      .index-hero {
+        padding: 60px 20px 50px;
+        margin-bottom: 40px;
+      }
+
+      .index-cards {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 0 16px;
+      }
+
+      .index-card {
+        padding: 28px 24px;
+      }
+
+      .index-topic-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .index-topics h2 {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body class="index-page">
+  <header>
+    <nav class="nav">
+      <div class="brand">池田 悠耶(Yuya Ikeda)</div>
+      <div class="menu">
+        <a class="active" href="./index.html">ホーム</a>
+        <a href="./profile.html">プロフィール</a>
+        <a href="./research.html">研究</a>
+        <a href="./daily.html">日々の記録</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="index-cards">
+      <div class="index-card">
+        <span class="index-card-icon">👤</span>
+        <h3>プロフィール</h3>
+        <a href="./profile.html" class="index-card-button">プロフィールを見る →</a>
+      </div>
+      <div class="index-card">
+        <span class="index-card-icon">🔬</span>
+        <h3>研究</h3>
+        <a href="./research.html" class="index-card-button">研究ページへ →</a>
+      </div>
+      <div class="index-card">
+        <span class="index-card-icon">📝</span>
+        <h3>日々の記録</h3>
+        <a href="./daily.html" class="index-card-button">記録を読む →</a>
+      </div>
+    </section>
+
+    <section class="index-topics">
+      <h2>最新のトピック</h2>
+      <ul class="index-topic-list">
+        <li class="index-topic-item">
+          <span class="index-topic-tag research">研究進捗</span>
+          <span class="index-topic-text">-</span>
+        </li>
+        <li class="index-topic-item">
+          <span class="index-topic-tag news">お知らせ</span>
+          <span class="index-topic-text">-</span>
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div>© 2025 Yuya Ikeda</div>
+  </footer>
+</body>
+</html>
