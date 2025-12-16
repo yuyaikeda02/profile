@@ -6,7 +6,7 @@
   <title>プロフィール</title>
   <link rel="stylesheet" href="./style.css">
 </head>
-<body>
+<body class="profile-page">
   <header>
     <nav class="nav">
       <div class="brand">池田 悠耶(Yuya Ikeda)</div>
@@ -62,15 +62,21 @@
       </div>
     </section>
 
-    <section class="two-col">
-      <div class="card">
-        <h2>スキル・使用技術</h2>
-        <ul class="list">
-          <li>プログラミング言語: Python</li>
-        </ul>
-        <ul class="list">
-          <li>スキル: Google Data Analytics</li>
-        </ul>
+    <section class="skills-section">
+      <h2>スキル・使用技術</h2>
+      <div class="skills-container">
+        <div class="skill-category">
+          <h3 class="skill-category-title">プログラミング言語</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+          </div>
+        </div>
+        <div class="skill-category">
+          <h3 class="skill-category-title">スキル</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Google Data Analytics</span>
+          </div>
+        </div>
       </div>
     </section>
   </main>
