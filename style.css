@@ -373,64 +373,68 @@ body.profile-page .skills-section {
 body.profile-page .skills-section h2 {
   font-size: 1.8rem;
   font-weight: 300;
-  margin: 0 0 28px 0;
+  margin: 0 0 12px 0;
   letter-spacing: 0.8px;
   color: #1a1a1a;
   font-family: Georgia, "Times New Roman", serif;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #1a1a1a;
 }
 
 body.profile-page .skills-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 24px;
+  display: block;
 }
 
 body.profile-page .skill-category {
-  padding: 16px;
-  background: linear-gradient(135deg, #f0fdf4 0%, #e0fdf4 100%);
-  border: 1px solid #86efac;
-  border-radius: 8px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
   box-shadow: none;
-  transition: all 0.2s ease;
+  margin-bottom: 16px;
+  transition: none;
 }
 
 body.profile-page .skill-category:hover {
-  border-color: #059669;
-  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.08);
+  border-color: transparent;
+  box-shadow: none;
+  transform: none;
 }
 
 body.profile-page .skill-category-title {
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: #047857;
-  margin: 0 0 10px 0;
-  letter-spacing: 0.3px;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+  letter-spacing: 0.2px;
   font-family: "Noto Sans JP", sans-serif;
 }
 
 body.profile-page .skill-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 8px;
 }
 
 body.profile-page .skill-tag {
   display: inline-block;
   padding: 6px 12px;
-  background: #059669;
-  color: #ffffff;
-  border-radius: 16px;
-  font-size: 0.8rem;
-  font-weight: 500;
+  background: #e0fdf4;
+  color: #047857;
+  border: 1px solid #86efac;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 400;
   letter-spacing: 0.1px;
-  box-shadow: 0 1px 3px rgba(5, 150, 105, 0.15);
+  box-shadow: none;
   transition: all 0.2s ease;
 }
 
 body.profile-page .skill-tag:hover {
-  background: #047857;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.2);
+  background: #d1f2eb;
+  border-color: #059669;
+  transform: none;
+  box-shadow: none;
 }
 
 @keyframes scanlines {
