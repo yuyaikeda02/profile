@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>日常 - ドローンプログラミングの授業に参加しました</title>
+  
+  <link rel="stylesheet" href="./style.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- 基本設定 --- */
+    body {
+      background-color: #fdfdfd;
+      color: #333;
+      font-family: "Noto Sans JP", sans-serif;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* --- メインコンテンツ --- */
+    .magazine-main {
+      max-width: 800px;
+      margin: 60px auto 120px;
+      padding: 0 20px;
+    }
+
+    /* 記事ヘッダー */
+    .magazine-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .magazine-date {
+      display: inline-block;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      color: #888;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 5px;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      text-transform: uppercase;
+    }
+
+    .magazine-title {
+      font-family: "Noto Serif JP", serif;
+      font-size: clamp(24px, 5vw, 42px);
+      font-weight: 700;
+      line-height: 1.4;
+      color: #111;
+      margin-bottom: 10px;
+    }
+
+    /* 画像エリア */
+    .image-container {
+      width: 100%;
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    .magazine-hero-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    }
+
+    .image-caption {
+      font-size: 12px;
+      color: #888;
+      margin-top: 10px;
+      text-align: right;
+    }
+
+    /* --- 本文エリア（修正箇所） --- */
+    .magazine-content {
+      font-size: 16px;
+      line-height: 2;
+      color: #444;
+      
+      /* 左揃えに戻して、文字間隔の崩れを防ぎます */
+      text-align: left; 
+    }
+
+    .magazine-content p {
+      margin-bottom: 2em;
+    }
+
+    /* 最初の文字を大きくする（ドロップキャップ） */
+    .magazine-content p:first-of-type::first-letter {
+      font-size: 3.5em;
+      float: left;
+      line-height: 0.8;
+      margin-right: 12px;
+      margin-top: 4px;
+      font-family: "Noto Serif JP", serif;
+      color: #111;
+    }
+
+    /* フッター */
+    footer {
+      text-align: left;
+      padding: 40px 0;
+      border-top: 1px solid #eaeaea;
+      font-size: 12px;
+      color: #999;
+      letter-spacing: 0.1em;
+    }
+
+    /* スマホ対応 */
+    @media (max-width: 768px) {
+      .magazine-main {
+        margin-top: 40px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="nav">
+      <div class="brand">池田 悠耶(Yuya Ikeda)</div>
+      <div class="menu">
+        <a href="./index.html">ホーム</a>
+        <a href="./profile.html">プロフィール</a>
+        <a href="./research.html">研究</a>
+        <a class="active" href="./daily.html">日常</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="magazine-main">
+    <article class="magazine-header">
+      <div class="magazine-date">DECEMBER 19, 2025</div>
+      <h1 class="magazine-title">ドローンプログラミングの授業に参加しました</h1>
+    </article>
+
+    <div class="image-container">
+      <img src="1564687654687y7.jpg" alt="ドローン実習の様子" class="magazine-hero-image">
+    </div>
+
+    <div class="magazine-content">
+      <p>
+        本日は、鎮西学院大学にて行われたドローンプログラミングの授業に参加しました。授業では、Scratch と Python の二つのプログラミング環境を用い、ドローンの基本的な飛行制御について学習しました。Scratchでは視覚的に命令を組み立てながら動作の流れを理解し、Pythonではコードを記述することで、より実践的な制御方法を学ぶことができました。
+      </p>
+      <p>
+        実際のドローンの挙動とプログラムの関係を確認しながら進められたため、プログラミングによって機体を制御する仕組みへの理解が深まりました。
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <div>© 2025 Yuya Ikeda</div>
+  </footer>
+
+</body>
+</html>
