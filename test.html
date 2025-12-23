@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>池田 悠耶(Yuya Ikeda) - Home</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+
+  <style>
+    /* 共通スタイル */
+    body.index-page { background: #ffffff; font-family: "Noto Sans JP", sans-serif; margin: 0; }
+    .index-works { padding: 40px 24px; width: 100%; display: flex; flex-direction: column; align-items: center; min-height: 80vh; }
+    .master-container { position: relative; padding: 50px; }
+    
+    /* スライダー */
+    .index-image-container { position: relative; width: 500px; max-width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); z-index: 5; background: #eee;}
+    .sub-image-container { position: absolute; width: 120px; height: 120px; overflow: hidden; border-radius: 16px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border: 3px solid #fff; z-index: 10; background: #000; }
+    .top-left { top: 0; left: 0; } .top-right { top: 0; right: 0; } .bottom-left { bottom: 0; left: 0; } .bottom-right { bottom: 0; right: 0; }
+    .index-works-slider, .sub-works-slider { display: flex; height: 100%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }
+    .index-work-item { flex-shrink: 0; width: 100%; height: 100%; }
+    .index-work-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .index-image-container .index-work-item { min-width: 500px; }
+    .sub-image-container .index-work-item { min-width: 120px; }
+
+    /* 地図 */
+    #map-container { width: 80%; max-width: 800px; height: 500px; margin-top: 30px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); z-index: 1; }
+
+    /* モーダル */
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.9); padding-top: 60px; }
+    .modal-content { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 20px; max-width: 1200px; margin: auto; }
+    .modal-item { width: 300px; background: #222; border-radius: 8px; overflow: hidden; color: #fff; text-align: center; }
+    .modal-item img { width: 100%; height: 200px; object-fit: cover; cursor: pointer; }
+    .close { position: absolute; top: 15px; right: 35px; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer; }
+
+    @media (max-width: 600px) {
+      .index-image-container { width: 300px; }
+      .index-image-container .index-work-item { min-width: 300px; }
+      .sub-image-container { width: 80px; height: 80px; }
+      .sub-image-container .index-work-item { min-width: 80px; }
+      #map-container { width: 95%; height: 350px; }
+    }
+  </style>
+</head>
+<body class="index-page">
+  <header>
+    <nav class="nav">
+      <div class="brand">池田 悠耶(Yuya Ikeda)</div>
+      <div class="menu">
+        <a class="active" href="./index.html">ホーム</a>
+        <a href="./profile.html">プロフィール</a>
+        <a href="./research.html">研究</a>
+        <a href="./daily.html">日常</a>
+        <a href="./others.html">他</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="index-works">
+      
+      <div class="master-container">
+        <div class="index-image-container"><div class="index-works-slider" id="mainSlider"></div></div>
+        <div class="sub-image-container top-left"><div class="sub-works-slider" id="sub1"></div></div>
+        <div class="sub-image-container top-right"><div class="sub-works-slider" id="sub2"></div></div>
+        <div class="sub-image-container bottom-left"><div class="sub-works-slider" id="sub3"></div></div>
+        <div class="sub-image-container bottom-right"><div class="sub-works-slider" id="sub4"></div></div>
+      </div>
+
+      <h3>Travel Map</h3>
+      <p>ピンをクリックして詳細を表示</p>
+      <div id="map-container"></div>
+
+    </section>
+
+    <div id="gallery-modal" class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 style="color:white; text-align:center;">Location Gallery</h2>
+      <div class="modal-content" id="modal-grid"></div>
+    </div>
+  </main>
+
+  <footer><div>© 2025 Yuya Ikeda</div></footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // ★ここにFirebase Configを貼り付け★
+    const firebaseConfig = {
+      apiKey: "AIzaSyAOXZbiMIA4QWZvIeAeuWJUgf9Cig4-QGg",
+  authDomain: "myprofile-555d3.firebaseapp.com",
+  projectId: "myprofile-555d3",
+  storageBucket: "myprofile-555d3.firebasestorage.app",
+  messagingSenderId: "544294059424",
+  appId: "1:544294059424:web:68484691610464609938c5",
+  measurementId: "G-W69DEVZHR1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let globalPhotos = [];
+    const map = L.map('map-container').setView([36.5, 138], 5);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap' }).addTo(map);
+
+    async function loadGallery() {
+      const sliders = [
+        document.getElementById('mainSlider'), document.getElementById('sub1'), 
+        document.getElementById('sub2'), document.getElementById('sub3'), document.getElementById('sub4')
+      ];
+      
+      const q = query(collection(db, "photos"), orderBy("createdAt", "desc"));
+      const querySnapshot = await getDocs(q);
+
+      globalPhotos = [];
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        globalPhotos.push(data);
+
+        // スライダー追加
+        sliders.forEach(el => {
+          const div = document.createElement('div');
+          div.className = 'index-work-item';
+          div.innerHTML = `<img src="${data.url}" class="index-work-image">`;
+          el.appendChild(div);
+        });
+
+        // マップピン追加
+        if (data.lat && data.lng) {
+          const marker = L.marker([data.lat, data.lng]).addTo(map);
+          const content = document.createElement('div');
+          content.style.textAlign = "center";
+          content.innerHTML = `
+            <b>${data.title}</b><br>
+            <img src="${data.url}" style="width:100px; margin:5px 0;"><br>
+            <button class="view-btn">周辺の写真を見る</button>
+          `;
+          content.querySelector('.view-btn').onclick = () => openLocationGallery(data.lat, data.lng);
+          marker.bindPopup(content);
+        }
+      });
+      startAnimation(sliders.map(el => ({ el })));
+    }
+
+    window.openLocationGallery = function(targetLat, targetLng) {
+      const modal = document.getElementById('gallery-modal');
+      const grid = document.getElementById('modal-grid');
+      grid.innerHTML = '';
+      const threshold = 0.1; // 約10km
+
+      const nearby = globalPhotos.filter(p => 
+        p.lat && Math.abs(p.lat - targetLat) < threshold && Math.abs(p.lng - targetLng) < threshold
+      );
+
+      if (nearby.length === 0) return alert("近くに写真はありません");
+
+      nearby.forEach(p => {
+        const item = document.createElement('div');
+        item.className = 'modal-item';
+        item.innerHTML = `<img src="${p.url}" onclick="window.open('${p.url}','_blank')"><p>${p.title}</p>`;
+        grid.appendChild(item);
+      });
+      modal.style.display = "block";
+    };
+
+    window.closeModal = () => document.getElementById('gallery-modal').style.display = "none";
+
+    let timer;
+    function startAnimation(sliders) {
+      if(timer) clearInterval(timer);
+      function updateSlider(s) {
+        const items = s.el.querySelectorAll('.index-work-item');
+        if (!items.length) return;
+        const idx = Math.floor(Math.random() * items.length);
+        const w = items[0].offsetWidth || s.el.parentElement.offsetWidth;
+        s.el.style.transform = `translateX(-${idx * w}px)`;
+      }
+      function run() { sliders.forEach(s => updateSlider(s)); }
+      setTimeout(run, 1000);
+      timer = setInterval(run, 5000);
+      window.addEventListener('resize', run);
+    }
+
+    loadGallery();
+  </script>
+</body>
+</html>
