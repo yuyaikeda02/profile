@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Photo - Yuya Ikeda</title>
+  <link rel="stylesheet" href="./style.css">
+  
+  <style>
+    body { font-family: "Noto Sans JP", sans-serif; background: #f4f4f4; margin: 0; }
+    .container { max-width: 600px; margin: 50px auto; padding: 20px; }
+    
+    .upload-card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    h2 { text-align: center; margin-top: 0; color: #333; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-weight: bold; color: #555; }
+    input[type="text"], input[type="file"] { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+    
+    button { width: 100%; background: #333; color: white; padding: 15px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; transition: 0.2s; }
+    button:hover { background: #555; }
+    
+    .status { margin-top: 20px; text-align: center; font-weight: bold; color: #007bff; min-height: 24px; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <div class="brand">管理画面</div>
+      <div class="menu">
+        <a href="./index.html">ホームに戻る</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="upload-card">
+      <h2>写真のアップロード</h2>
+      
+      <div class="form-group">
+        <label>タイトル (任意)</label>
+        <input type="text" id="input-title" placeholder="例: 作品名や場所など">
+      </div>
+
+      <div class="form-group">
+        <label>写真ファイル</label>
+        <input type="file" id="file-upload" accept="image/*">
+      </div>
+
+      <button onclick="uploadPhoto()">アップロード</button>
+      <div id="upload-status" class="status"></div>
+    </div>
+  </div>
+  
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // ★index.htmlと同じConfigを貼ってください★
+    const firebaseConfig = {
+      apiKey: "AIzaSyAOXZbiMIA4QWZvIeAeuWJUgf9Cig4-QGg",
+  authDomain: "myprofile-555d3.firebaseapp.com",
+  projectId: "myprofile-555d3",
+  storageBucket: "myprofile-555d3.firebasestorage.app",
+  messagingSenderId: "544294059424",
+  appId: "1:544294059424:web:68484691610464609938c5",
+  measurementId: "G-W69DEVZHR1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const storage = getStorage(app);
+    const db = getFirestore(app);
+
+    // アップロード機能
+    window.uploadPhoto = async function() {
+      const fileInput = document.getElementById('file-upload');
+      const titleInput = document.getElementById('input-title');
+      const statusDiv = document.getElementById('upload-status');
+
+      const file = fileInput.files[0];
+      const title = titleInput.value || "No Title";
+
+      if (!file) return alert("画像を選択してください");
+
+      try {
+        statusDiv.innerText = "アップロード中...";
+        statusDiv.style.color = "#007bff";
+        
+        // 1. Storageへ画像をアップロード
+        // ファイル名の重複を防ぐためタイムスタンプを付与
+        const storageRef = ref(storage, 'uploads/' + Date.now() + '_' + file.name);
+        await uploadBytes(storageRef, file);
+        const downloadURL = await getDownloadURL(storageRef);
+
+        // 2. Firestoreへデータ(URLとタイトル)を保存
+        // 地図がなくなったのでlat/lngは保存しません
+        await addDoc(collection(db, "photos"), {
+          title: title,
+          url: downloadURL,
+          createdAt: new Date()
+        });
+
+        statusDiv.innerText = "アップロード完了！";
+        statusDiv.style.color = "green";
+        
+        // フォームリセット
+        fileInput.value = "";
+        titleInput.value = "";
+        
+      } catch (error) {
+        console.error("Error:", error);
+        statusDiv.innerText = "エラー: " + error.message;
+        statusDiv.style.color = "red";
+      }
+    };
+  </script>
+</body>
+</html>
