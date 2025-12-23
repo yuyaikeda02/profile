@@ -3,110 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>池田 悠耶(Yuya Ikeda) - My profile-page</title>
+  <title>池田 悠耶(Yuya Ikeda) - Home</title>
   <link rel="stylesheet" href="./style.css">
+
   <style>
-    body.index-page {
-      background: #ffffff;
-      font-family: "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
-      margin: 0;
-    }
-
-    .index-works {
-      padding: 80px 24px;
-      width: 100%;
-      background: #ffffff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 80vh;
-    }
-
-    /* 全体の配置を制御するコンテナ */
-    .master-container {
-      position: relative;
-      /* 四隅の画像がメイン画像に被る量を調整するためにpaddingを設定 */
-      padding: 50px; 
-    }
-
-    /* 中央のメインスライダー */
-    .index-image-container {
-      position: relative;
-      width: 500px;
-      max-width: 100%;
-      aspect-ratio: 16 / 9; /* 画像の比率に合わせて調整 */
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-      z-index: 5;
-    }
-
-    /* 四隅のミニスライダー（全面画像表示用） */
-    .sub-image-container {
-      position: absolute;
-      width: 120px;
-      height: 120px;
-      overflow: hidden;
-      border-radius: 16px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-      border: 3px solid #fff;
-      z-index: 10;
-      background: #000; /* 隙間が見えないように背景を黒に */
-    }
-
-    /* 各コーナーの配置調整 */
-    .top-left     { top: 0; left: 0; }
-    .top-right    { top: 0; right: 0; }
-    .bottom-left  { bottom: 0; left: 0; }
-    .bottom-right { bottom: 0; right: 0; }
-
-    .index-works-slider, .sub-works-slider {
-      display: flex;
-      height: 100%;
-      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-      will-change: transform;
-    }
-
-    .index-work-item {
-      flex-shrink: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    .index-works {
-  padding: 20px 0; /* 上下の余白を小さく設定 */
-  width: 100%;
-  background: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 400px; /* 画面の高さに依存させず、必要最低限の高さにする */
-  box-sizing: border-box;
-}
-
-    /* メインとサブのサイズ指定を確実に反映 */
+    /* 共通スタイル */
+    body.index-page { background: #ffffff; font-family: "Noto Sans JP", sans-serif; margin: 0; }
+    .index-works { padding: 40px 24px; width: 100%; display: flex; flex-direction: column; align-items: center; min-height: 80vh; }
+    .master-container { position: relative; padding: 50px; }
+    
+    /* スライダー */
+    .index-image-container { position: relative; width: 500px; max-width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); z-index: 5; background: #eee;}
+    .sub-image-container { position: absolute; width: 120px; height: 120px; overflow: hidden; border-radius: 16px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); border: 3px solid #fff; z-index: 10; background: #000; }
+    .top-left { top: 0; left: 0; } .top-right { top: 0; right: 0; } .bottom-left { bottom: 0; left: 0; } .bottom-right { bottom: 0; right: 0; }
+    
+    .index-works-slider, .sub-works-slider { display: flex; height: 100%; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); will-change: transform; }
+    .index-work-item { flex-shrink: 0; width: 100%; height: 100%; }
+    .index-work-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+    
     .index-image-container .index-work-item { min-width: 500px; }
     .sub-image-container .index-work-item { min-width: 120px; }
-
-    /* 画像を枠いっぱいに広げる設定 */
-    .index-work-image {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* これにより余白なく全面表示されます */
-      display: block;
-    }
 
     @media (max-width: 600px) {
       .index-image-container { width: 300px; }
       .index-image-container .index-work-item { min-width: 300px; }
       .sub-image-container { width: 80px; height: 80px; }
       .sub-image-container .index-work-item { min-width: 80px; }
-      .master-container { padding: 40px; }
     }
   </style>
 </head>
 <body class="index-page">
-  <header>
+<header>
     <nav class="nav">
       <div class="brand">池田 悠耶(Yuya Ikeda)</div>
       <div class="menu">
@@ -114,7 +41,7 @@
         <a href="./profile.html">プロフィール</a>
         <a href="./research.html">研究</a>
         <a href="./daily.html">日常</a>
-        <a href="test.html">他</a>
+        <a href="./others.html">他</a>
       </div>
     </nav>
   </header>
@@ -122,80 +49,81 @@
   <main>
     <section class="index-works">
       <div class="master-container">
-        
         <div class="index-image-container">
-          <div class="index-works-slider" id="mainSlider">
-            <div class="index-work-item"><img src="20251217pic.png" alt="1" class="index-work-image"></div>
-            <div class="index-work-item"><img src="20251217(2)pic.png" alt="2" class="index-work-image"></div>
-            <div class="index-work-item"><img src="20251217(3)pic.png" alt="3" class="index-work-image"></div>
-            <div class="index-work-item"><img src="20251227(4)pic.png" alt="4" class="index-work-image"></div>
-          </div>
+          <div class="index-works-slider" id="mainSlider"></div>
         </div>
-
         <div class="sub-image-container top-left"><div class="sub-works-slider" id="sub1"></div></div>
         <div class="sub-image-container top-right"><div class="sub-works-slider" id="sub2"></div></div>
         <div class="sub-image-container bottom-left"><div class="sub-works-slider" id="sub3"></div></div>
         <div class="sub-image-container bottom-right"><div class="sub-works-slider" id="sub4"></div></div>
-
       </div>
     </section>
-
-    <script>
-      (function() {
-        const images = [
-          "20251217pic.png", "20251217(2)pic.png", "20251217(3)pic.png",
-          "20251227(4)pic.png", "20251217(5)pic.png", "20251217(6)pic.png",
-          "20251217(7)pic.png", "20251217(8)pic.png"
-        ];
-
-        const sliders = [
-          { el: document.getElementById('mainSlider') },
-          { el: document.getElementById('sub1') },
-          { el: document.getElementById('sub2') },
-          { el: document.getElementById('sub3') },
-          { el: document.getElementById('sub4') }
-        ];
-
-        // サブスライダーの中身を生成
-        sliders.slice(1).forEach(s => {
-          images.forEach(imgSrc => {
-            const div = document.createElement('div');
-            div.className = 'index-work-item';
-            div.innerHTML = `<img src="${imgSrc}" class="index-work-image">`;
-            s.el.appendChild(div);
-          });
-        });
-
-        function updateSlider(sliderObj) {
-          const items = sliderObj.el.querySelectorAll('.index-work-item');
-          const randomIndex = Math.floor(Math.random() * items.length);
-          const itemWidth = items[0].offsetWidth;
-          sliderObj.el.style.transform = `translateX(-${randomIndex * itemWidth}px)`;
-        }
-
-        function slideAll() {
-          sliders.forEach(s => updateSlider(s));
-        }
-
-        // 初期実行と5秒ごとの更新
-        slideAll();
-        let timer = setInterval(slideAll, 5000);
-
-        // ウィンドウリサイズ時の補正
-        window.addEventListener('resize', slideAll);
-
-        // ホバー時に停止、離れると再開
-        const container = document.querySelector('.master-container');
-        container.addEventListener('mouseenter', () => clearInterval(timer));
-        container.addEventListener('mouseleave', () => {
-          timer = setInterval(slideAll, 5000);
-        });
-      })();
-    </script>
   </main>
 
-  <footer>
-    <div>© 2025 Yuya Ikeda</div>
-  </footer>
+  <footer><div>© 2025 Yuya Ikeda</div></footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, getDocs, orderBy, query } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // ★ここにFirebase Configを貼り付け★
+    const firebaseConfig = {
+      apiKey: "AIzaSyAOXZbiMIA4QWZvIeAeuWJUgf9Cig4-QGg",
+  authDomain: "myprofile-555d3.firebaseapp.com",
+  projectId: "myprofile-555d3",
+  storageBucket: "myprofile-555d3.firebasestorage.app",
+  messagingSenderId: "544294059424",
+  appId: "1:544294059424:web:68484691610464609938c5",
+  measurementId: "G-W69DEVZHR1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function loadGallery() {
+      const sliders = [
+        document.getElementById('mainSlider'), document.getElementById('sub1'), 
+        document.getElementById('sub2'), document.getElementById('sub3'), document.getElementById('sub4')
+      ];
+      
+      // Firestoreから画像データを取得
+      const q = query(collection(db, "photos"), orderBy("createdAt", "desc"));
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((doc) => {
+        const data = doc.data();
+        
+        // すべてのスライダーに追加
+        sliders.forEach(el => {
+          const div = document.createElement('div');
+          div.className = 'index-work-item';
+          // タイトルがある場合はalt属性に入れる
+          div.innerHTML = `<img src="${data.url}" alt="${data.title || ''}" class="index-work-image">`;
+          el.appendChild(div);
+        });
+      });
+
+      // アニメーション開始
+      startAnimation(sliders.map(el => ({ el })));
+    }
+
+    let timer;
+    function startAnimation(sliders) {
+      if(timer) clearInterval(timer);
+      function updateSlider(s) {
+        const items = s.el.querySelectorAll('.index-work-item');
+        if (!items.length) return;
+        const idx = Math.floor(Math.random() * items.length);
+        const w = items[0].offsetWidth || s.el.parentElement.offsetWidth;
+        s.el.style.transform = `translateX(-${idx * w}px)`;
+      }
+      function run() { sliders.forEach(s => updateSlider(s)); }
+      setTimeout(run, 1000); // 描画待ち
+      timer = setInterval(run, 5000); // 5秒ごとにスライド
+      window.addEventListener('resize', run);
+    }
+
+    loadGallery();
+  </script>
 </body>
 </html>
