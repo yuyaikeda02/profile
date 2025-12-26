@@ -10,11 +10,11 @@
     /* 共通スタイル */
     body.index-page { background: #ffffff; font-family: "Noto Sans JP", sans-serif; margin: 0; }
     
-    /* メインエリアの設定：高さを減らして上下を詰める */
+    /* メインエリアの設定 */
     .index-works { 
-      padding: 0 24px;      /* 上下の余白をゼロに */
+      padding: 0 24px;
       width: 100%; 
-      min-height: 50vh;     /* 80vh -> 50vh に変更（これでフッターが上がってきます） */
+      min-height: 60vh; /* ボタン追加分、少し高さを確保 */
       display: flex; 
       flex-direction: column; 
       justify-content: center;
@@ -26,21 +26,61 @@
     .welcome-message {
       text-align: center;
       color: #333;
-      animation: fadeIn 2s ease-out;
+      animation: fadeIn 1.5s ease-out;
     }
 
     .welcome-message h1 {
       font-size: 24px;
       font-weight: normal;
       letter-spacing: 0.1em;
-      line-height: 1.5;     /* 行間も少し詰める */
-      margin-bottom: 5px;   /* 下の文字との間隔を詰める */
+      line-height: 1.5;
+      margin-bottom: 30px; /* ボタンとの間隔を空ける */
     }
 
-    .welcome-message p {
+    /* ナビゲーションボタンエリア */
+    .nav-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap; /* 画面幅が狭い時に折り返す */
+      max-width: 800px;
+    }
+
+    /* ボタン個別のスタイル */
+    .nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 140px;
+      padding: 15px 10px;
+      background: #ffffff;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #333;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    }
+
+    /* ホバー時の挙動 */
+    .nav-btn:hover {
+      transform: translateY(-5px); /* ふわりと浮く */
+      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+      border-color: #bbb;
+    }
+
+    .nav-btn span.ja {
       font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .nav-btn span.en {
+      font-size: 11px;
       color: #888;
-      margin-top: 0;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
     /* アニメーション */
@@ -55,21 +95,33 @@
 <header>
     <nav class="nav">
       <div class="brand">池田 悠耶(Yuya Ikeda)</div>
-      <div class="menu">
-        <a class="active" href="./index.html">ホーム</a>
-        <a href="./profile.html">プロフィール</a>
-        <a href="./research.html">研究</a>
-        <a href="./daily.html">日常</a>
-        <a href="./others.html">他</a>
-      </div>
     </nav>
   </header>
 
   <main>
     <section class="index-works">
       <div class="welcome-message">
-        <h1>ヘッダーのメニューより<br>選択してください</h1>
-        <p>Please select from the menu above.</p>
+        <h1>Welcome</h1>
+        
+        <div class="nav-buttons">
+          <a href="./profile.html" class="nav-btn">
+            <span class="ja">プロフィール</span>
+            <span class="en">Profile</span>
+          </a>
+          <a href="./research.html" class="nav-btn">
+            <span class="ja">研究</span>
+            <span class="en">Research</span>
+          </a>
+          <a href="./daily.html" class="nav-btn">
+            <span class="ja">日常</span>
+            <span class="en">Daily</span>
+          </a>
+          <a href="./others.html" class="nav-btn">
+            <span class="ja">写真</span>
+            <span class="en">Picture</span>
+          </a>
+        </div>
+
       </div>
     </section>
   </main>
