@@ -3,10 +3,234 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>研究</title>
-  <link rel="stylesheet" href="./style.css">
+  <title>研究業績 - 池田 悠耶</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Noto+Sans+JP:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- 初期化 --- */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Shippori Mincho", "Yu Mincho", serif;
+      background-color: #f5f5f5; /* Researchmap風の背景色 */
+      color: #333;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* =========================================
+       HEADER STYLE (From Uploaded Code)
+       すりガラス・グラデーション仕様
+       ========================================= */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 12;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.55));
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(226, 232, 240, 0.9);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 16px 22px;
+    }
+
+    .brand {
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      font-family: "Noto Sans JP", sans-serif;
+    }
+
+    .menu {
+      display: flex;
+      gap: 10px;
+      font-size: 14px;
+      font-family: "Noto Sans JP", sans-serif;
+    }
+
+    .menu a {
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      color: #4b5563;
+      transition: all 0.2s ease;
+    }
+
+    .menu a:hover,
+    .menu a.active {
+      border-color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.72);
+      color: #0f172a;
+    }
+
+    /* =========================================
+       MAIN CONTENT (Researchmap Style)
+       公的・データベース風デザイン
+       ========================================= */
+    .research-main {
+      max-width: 1000px; /* ヘッダー幅とのバランス調整 */
+      margin: 30px auto;
+      padding: 0 20px 80px;
+    }
+
+    /* 白い紙のようなコンテナ */
+    .paper-container {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    /* 青いアクセントの見出し */
+    .rm-heading {
+      font-size: 1.25rem;
+      border-bottom: 2px solid #0056b3;
+      padding-bottom: 8px;
+      margin-bottom: 24px;
+      color: #333;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+    
+    .rm-heading::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 1.25rem;
+      background-color: #0056b3;
+      margin-right: 12px;
+    }
+
+    /* 研究分野テーブル */
+    .field-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    .field-row {
+      display: flex;
+      border-bottom: 1px solid #eee;
+      padding: 12px 0;
+    }
+
+    .field-label {
+      width: 180px;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 0.85rem;
+      color: #666;
+      background-color: #f9f9f9;
+      padding: 6px 10px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .field-content {
+      padding-left: 20px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+    }
+
+    /* プロジェクトリスト（シンプル・枠なし） */
+    .project-list-clean {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .clean-item {
+      padding: 24px 0;
+      border-bottom: 1px dashed #ddd;
+    }
+
+    .clean-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .clean-item:first-child {
+      padding-top: 0;
+    }
+
+    .meta-category {
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 0.7rem;
+      color: #0056b3;
+      border: 1px solid #0056b3;
+      padding: 2px 8px;
+      border-radius: 2px;
+      display: inline-block;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .clean-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      line-height: 1.5;
+      color: #222;
+    }
+
+    .clean-desc {
+      font-size: 0.9rem;
+      color: #555;
+      font-family: "Noto Sans JP", sans-serif;
+      line-height: 1.7;
+    }
+
+    /* 空の状態 */
+    .empty-text {
+      color: #999;
+      font-family: "Noto Sans JP", sans-serif;
+      font-size: 0.9rem;
+      padding: 10px 0;
+    }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.75rem;
+      color: #888;
+      font-family: "Noto Sans JP", sans-serif;
+      border-top: 1px solid #e0e0e0;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .nav { flex-direction: column; gap: 10px; align-items: flex-start; }
+      .menu { width: 100%; overflow-x: auto; padding-bottom: 5px; }
+      .field-row { flex-direction: column; gap: 5px; }
+      .field-label { width: 100%; background: none; padding: 0; color: #999; margin-bottom: 4px;}
+      .field-content { padding-left: 0; }
+      .paper-container { padding: 24px; }
+    }
+  </style>
 </head>
 <body>
+
   <header>
     <nav class="nav">
       <div class="brand">池田 悠耶(Yuya Ikeda)</div>
@@ -20,107 +244,58 @@
   </header>
 
   <main class="research-main">
-    <section class="research-hero">
-      <div class="hero-content">
-        <h1 class="hero-title">Research</h1>
-        <p class="hero-subtitle">私の研究を紹介します</p>
-        <div class="hero-accent"></div>
-      </div>
-    </section>
-
-    <section class="research-theme">
-      <div class="section-header">
-        <h2>研究テーマ</h2>
-        <div class="header-line"></div>
-      </div>
-      <div class="theme-card">
-        <div class="theme-icon">◆</div>
-        <p class="theme-text">寄港地における観光地周遊ルートの組み合わせが観光客の満足度に与える影響の分析</p>
-      </div>
-    </section>
-
-    <section class="research-map">
-      <div class="section-header">
-        <h2>研究領域マップ</h2>
-        <div class="header-line"></div>
-      </div>
-      <div class="map-container">
-        <div class="research-domain">
-          <div class="domain-header">
-            <span class="domain-icon">◆</span>
-            <h4>主要研究領域</h4>
-          </div>
-          <div class="domain-items">
-            <div class="domain-item">観光行動分析</div>
-          </div>
+    
+    <section class="paper-container">
+      <h2 class="rm-heading">研究キーワード・分野</h2>
+      
+      <div class="field-table">
+        <div class="field-row">
+          <div class="field-label">主要研究領域</div>
+          <div class="field-content">観光行動分析</div>
         </div>
-
-        <div class="research-domain">
-          <div class="domain-header">
-            <span class="domain-icon">◆</span>
-            <h4>関連分野</h4>
-          </div>
-          <div class="domain-items">
-            <div class="domain-item">数理最適化</div>
-          </div>
+        <div class="field-row">
+          <div class="field-label">関連分野</div>
+          <div class="field-content">数理最適化</div>
         </div>
-
-        <div class="research-domain">
-          <div class="domain-header">
-            <span class="domain-icon">◆</span>
-            <h4>応用領域</h4>
-          </div>
-          <div class="domain-items">
-            <div class="domain-item">現在記載がありません。</div>
-          </div>
+        <div class="field-row">
+          <div class="field-label">応用領域</div>
+          <div class="field-content empty-text">現在登録されていません</div>
         </div>
       </div>
     </section>
 
-    <section class="research-grid">
-      <div class="grid-container">
-        <div class="research-card achievements">
-          <div class="card-header">
-            <h3>主要な成果</h3>
-            <div class="card-line"></div>
-          </div>
-          <ul class="achievement-list">
-            <li>現在記載がありません。</li>
-          </ul>
-          <div class="card-glow"></div>
+    <section class="paper-container">
+      <h2 class="rm-heading">進行中のプロジェクト</h2>
+      
+      <div class="project-list-clean">
+        
+        <div class="clean-item">
+          <h3 class="clean-title">寄港地における観光地周遊ルートの組み合わせが観光客の満足度に与える影響の分析</h3>
         </div>
 
-        <div class="research-card projects">
-          <div class="card-header">
-            <h3>進行中のプロジェクト</h3>
-            <div class="card-line"></div>
-          </div>
-          <ul class="project-list">
-            <li class="project-item">
-              <span class="project-marker">→</span>
-              <span class="project-text">特定筆致対象の崩し字活字化システム開発</span>
-            </li>
-          </ul>
-          <div class="card-glow"></div>
+        <div class="clean-item">
+          <h3 class="clean-title">特定筆致対象の崩し字活字化システム開発</h3>
+          <p class="clean-desc">古文書解読の効率化を目指したAI-OCRエンジンの実装と精度検証。特定個人の筆跡データの学習モデル構築。</p>
         </div>
+
       </div>
     </section>
 
-    <section class="research-publications">
-      <div class="section-header">
-        <h2>発表資料・データ</h2>
-        <div class="header-line"></div>
-      </div>
-      <div class="publications-card">
-        <div class="pub-placeholder">現在記載がありません。</div>
-        <div class="card-glow"></div>
-      </div>
+    <section class="paper-container">
+      <h2 class="rm-heading">主要な成果</h2>
+      <div class="empty-text">現在登録されたデータはありません。</div>
     </section>
+
+    <section class="paper-container">
+      <h2 class="rm-heading">発表資料・データ</h2>
+      <div class="empty-text">現在登録されたデータはありません。</div>
+    </section>
+
   </main>
 
   <footer>
-    <div>© 2025 Yuya Ikeda</div>
+    <div>© 2026 Yuya Ikeda</div>
   </footer>
+
 </body>
 </html>
-

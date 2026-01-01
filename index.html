@@ -4,129 +4,223 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>池田 悠耶(Yuya Ikeda) - Home</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="./style.css">
 
   <style>
-    /* 共通スタイル */
-    body.index-page { background: #ffffff; font-family: "Noto Sans JP", sans-serif; margin: 0; }
-    
-    /* メインエリアの設定 */
-    .index-works { 
-      padding: 0 24px;
-      width: 100%; 
-      min-height: 60vh; /* ボタン追加分、少し高さを確保 */
-      display: flex; 
-      flex-direction: column; 
-      justify-content: center;
-      align-items: center;
+    /* --- 初期化・全体設定 --- */
+    *, *::before, *::after {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    /* メッセージのデザイン */
-    .welcome-message {
-      text-align: center;
-      color: #333;
-      animation: fadeIn 1.5s ease-out;
+    :root {
+      --text-main: #333333;
+      --text-sub: #666666;
+      --bg-color: #ffffff;
+      --hover-bg: #f5f5f5;
+      --border-color: #eaeaea;
     }
 
-    .welcome-message h1 {
-      font-size: 24px;
-      font-weight: normal;
-      letter-spacing: 0.1em;
-      line-height: 1.5;
-      margin-bottom: 30px; /* ボタンとの間隔を空ける */
-    }
-
-    /* ナビゲーションボタンエリア */
-    .nav-buttons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap; /* 画面幅が狭い時に折り返す */
-      max-width: 800px;
-    }
-
-    /* ボタン個別のスタイル */
-    .nav-btn {
+    html, body {
+      width: 100%;
+      height: 100vh; /* 画面の高さに固定 */
+      height: 100dvh; /* モバイルのアドレスバー対策 */
+      overflow: hidden; /* スクロール禁止 */
+      font-family: "Shippori Mincho", serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
       display: flex;
       flex-direction: column;
-      align-items: center;
+      justify-content: space-between; /* ヘッダー・メイン・フッターを均等配置 */
+    }
+
+    /* ヘッダー */
+    header {
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .brand {
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      font-family: "Noto Sans JP", sans-serif;
+      font-weight: 300;
+    }
+
+    /* メインエリア */
+    main {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
       justify-content: center;
-      width: 140px;
-      padding: 15px 10px;
-      background: #ffffff;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      text-decoration: none;
-      color: #333;
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-      box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+      align-items: center;
+      width: 100%;
+      padding: 0 20px;
     }
 
-    /* ホバー時の挙動 */
-    .nav-btn:hover {
-      transform: translateY(-5px); /* ふわりと浮く */
-      box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-      border-color: #bbb;
+    .container {
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+      animation: fadeIn 0.8s ease-out;
     }
 
-    .nav-btn span.ja {
-      font-size: 14px;
+    /* タイトルエリア */
+    .main-title {
+      margin-bottom: 40px;
+    }
+
+    .main-title h1 {
+      font-size: 2.2rem;
       font-weight: 500;
-      margin-bottom: 4px;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
     }
 
-    .nav-btn span.en {
-      font-size: 11px;
-      color: #888;
-      letter-spacing: 0.05em;
+    .main-title .sub-text {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      font-family: "Noto Sans JP", sans-serif;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
     }
 
-    /* アニメーション */
+    /* ナビゲーションボタン */
+    .nav-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 16px; /* 間隔を少し詰める */
+      width: 100%;
+    }
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 18px 24px;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      text-decoration: none;
+      color: var(--text-main);
+      transition: all 0.3s ease;
+      /* シンプルさを優先し影は削除または極薄に */
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    .nav-btn:hover {
+      background-color: var(--hover-bg);
+      border-color: #ccc;
+      transform: translateY(-2px);
+    }
+
+    .text-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .nav-btn span.ja {
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      line-height: 1.4;
+    }
+
+    .nav-btn span.en {
+      font-size: 0.7rem;
+      color: #999;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-family: "Noto Sans JP", sans-serif;
+    }
+
+    .nav-btn::after {
+      content: '→';
+      font-family: sans-serif;
+      font-size: 1rem;
+      color: #ccc;
+      transition: transform 0.3s ease, color 0.3s;
+    }
+    
+    .nav-btn:hover::after {
+      transform: translateX(4px);
+      color: var(--text-main);
+    }
+
+    /* フッター */
+    footer {
+      padding: 15px;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #aaa;
+      font-family: "Noto Sans JP", sans-serif;
+      flex-shrink: 0;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* レスポンシブ調整（画面が極端に低い場合のみスクロール許可する安全策） */
+    @media (max-height: 600px) {
+      body {
+        height: auto;
+        min-height: 100vh;
+        overflow-y: auto;
+      }
+      main {
+        padding: 40px 20px;
+      }
+    }
   </style>
 </head>
-<body class="index-page">
-<header>
-    <nav class="nav">
-      <div class="brand">池田 悠耶(Yuya Ikeda)</div>
-    </nav>
-  </header>
+<body>
 
   <main>
-    <section class="index-works">
-      <div class="welcome-message">
-        <h1>Welcome</h1>
-        
-        <div class="nav-buttons">
-          <a href="./profile.html" class="nav-btn">
+    <div class="container">
+      
+      <div class="main-title">
+        <h1>Yuya Ikeda</h1>
+        <span class="sub-text">My Profile</span>
+      </div>
+      
+      <nav class="nav-buttons">
+        <a href="./profile.html" class="nav-btn">
+          <div class="text-container">
             <span class="ja">プロフィール</span>
             <span class="en">Profile</span>
-          </a>
-          <a href="./research.html" class="nav-btn">
-            <span class="ja">研究</span>
+          </div>
+        </a>
+        <a href="./research.html" class="nav-btn">
+          <div class="text-container">
+            <span class="ja">研究・開発</span>
             <span class="en">Research</span>
-          </a>
-          <a href="./daily.html" class="nav-btn">
+          </div>
+        </a>
+        <a href="./daily.html" class="nav-btn">
+          <div class="text-container">
             <span class="ja">日常</span>
             <span class="en">Daily</span>
-          </a>
-          <a href="./others.html" class="nav-btn">
-            <span class="ja">写真</span>
-            <span class="en">Picture</span>
-          </a>
-        </div>
+          </div>
+        </a>
+      </nav>
 
-      </div>
-    </section>
+    </div>
   </main>
 
-  <footer><div>© 2025 Yuya Ikeda</div></footer>
+  <footer>
+    <div>© 2026 Yuya Ikeda</div>
+  </footer>
 
 </body>
 </html>

@@ -5,117 +5,204 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>日常 - ドローンプログラミングの授業に参加しました</title>
   
-  <link rel="stylesheet" href="./style.css">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    /* --- 基本設定 --- */
+    /* =========================================
+       基本設定・テーマカラー (一覧ページと共通)
+       ========================================= */
+    :root {
+      --bg-color: #f0f4f8;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --primary-color: #00bcd4;       /* シアン */
+      --secondary-color: #007bff;     /* ブルー */
+      --text-main: #2c3e50;
+      --text-sub: #5f6c7b;
+      --code-bg: #f1f3f5;
+      --glass-border: 1px solid rgba(255, 255, 255, 0.7);
+      --shadow-light: 0 4px 20px 0 rgba(31, 38, 135, 0.05);
+    }
+
     body {
-      background-color: #fdfdfd;
-      color: #333;
+      margin: 0;
+      background-color: var(--bg-color);
+      color: var(--text-main);
       font-family: "Noto Sans JP", sans-serif;
       line-height: 1.8;
       -webkit-font-smoothing: antialiased;
+      
+      /* テック感のある背景グリッド */
+      background-image: 
+        linear-gradient(rgba(0, 188, 212, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 188, 212, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
     }
 
-    /* --- メインコンテンツ --- */
-    .magazine-main {
+    a { text-decoration: none; color: inherit; }
+
+    /* =========================================
+       ヘッダー (一覧ページと同一)
+       ========================================= */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 188, 212, 0.15);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .brand { font-size: 1.2rem; font-weight: bold; }
+
+    .menu { display: flex; gap: 20px; }
+    .menu a { color: var(--text-sub); font-size: 0.9rem; transition: color 0.3s; position: relative; }
+    .menu a:hover, .menu a.active { color: var(--primary-color); }
+    .menu a.active::after {
+      content: ''; position: absolute; width: 100%; height: 2px;
+      bottom: -4px; left: 0; background-color: var(--primary-color);
+    }
+
+    /* =========================================
+       記事ページ用レイアウト
+       ========================================= */
+    .blog-main {
       max-width: 800px;
-      margin: 60px auto 120px;
+      margin: 3rem auto 6rem;
       padding: 0 20px;
     }
 
+    /* 記事コンテナ（カード化） */
+    .article-container {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 3rem;
+      box-shadow: var(--shadow-light);
+      border: var(--glass-border);
+      backdrop-filter: blur(5px);
+    }
+
     /* 記事ヘッダー */
-    .magazine-header {
-      text-align: center;
-      margin-bottom: 60px;
+    .article-header {
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding-bottom: 2rem;
     }
 
-    .magazine-date {
-      display: inline-block;
-      font-size: 13px;
-      letter-spacing: 0.2em;
-      color: #888;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #333;
-      padding-bottom: 5px;
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      text-transform: uppercase;
+    .meta-info {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
     }
 
-    .magazine-title {
-      font-family: "Noto Serif JP", serif;
-      font-size: clamp(24px, 5vw, 42px);
+    .article-date {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--primary-color);
+      background: rgba(0, 188, 212, 0.1);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+
+    .article-title {
+      font-size: clamp(1.5rem, 4vw, 2.2rem);
       font-weight: 700;
+      color: var(--text-main);
+      margin: 0;
       line-height: 1.4;
-      color: #111;
-      margin-bottom: 10px;
     }
 
     /* 画像エリア */
     .image-container {
       width: 100%;
-      margin-bottom: 60px;
-      position: relative;
+      margin-bottom: 3rem;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
 
     .magazine-hero-image {
       width: 100%;
       height: auto;
       display: block;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
     }
 
-    .image-caption {
-      font-size: 12px;
-      color: #888;
-      margin-top: 10px;
-      text-align: right;
-    }
-
-    /* --- 本文エリア（修正箇所） --- */
-    .magazine-content {
-      font-size: 16px;
-      line-height: 2;
+    /* 本文デザイン */
+    .article-content {
+      font-size: 1rem;
+      line-height: 1.9;
       color: #444;
-      
-      /* 左揃えに戻して、文字間隔の崩れを防ぎます */
-      text-align: left; 
     }
 
-    .magazine-content p {
-      margin-bottom: 2em;
+    .article-content p {
+      margin-bottom: 2rem;
     }
 
-    /* 最初の文字を大きくする（ドロップキャップ） */
-    .magazine-content p:first-of-type::first-letter {
-      font-size: 3.5em;
-      float: left;
-      line-height: 0.8;
-      margin-right: 12px;
-      margin-top: 4px;
-      font-family: "Noto Serif JP", serif;
-      color: #111;
+    /* テックブログっぽくキーワードを強調したと仮定した場合のスタイル（汎用） */
+    .article-content strong {
+      background: linear-gradient(transparent 60%, rgba(0, 188, 212, 0.2) 60%);
+    }
+
+    /* ナビゲーションボタン */
+    .back-btn-container {
+      margin-top: 4rem;
+      text-align: center;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border: 1px solid var(--primary-color);
+      color: var(--primary-color);
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    .back-btn:hover {
+      background: var(--primary-color);
+      color: white;
+      box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+      transform: translateY(-2px);
     }
 
     /* フッター */
     footer {
-      text-align: left;
-      padding: 40px 0;
-      border-top: 1px solid #eaeaea;
-      font-size: 12px;
-      color: #999;
-      letter-spacing: 0.1em;
+      text-align: center;
+      padding: 3rem 0;
+      border-top: 1px solid rgba(0, 188, 212, 0.1);
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      font-family: 'Roboto Mono', monospace;
+      background: #fff;
     }
 
-    /* スマホ対応 */
+    /* スマホ対応（レスポンシブ） */
     @media (max-width: 768px) {
-      .magazine-main {
-        margin-top: 40px;
-      }
+      /* ヘッダー縦積み（一覧ページと統一） */
+      .nav { flex-direction: column; gap: 1rem; padding: 1rem; }
+      .menu { width: 100%; justify-content: center; gap: 1.5rem; font-size: 0.85rem; }
+
+      .blog-main { margin-top: 1rem; padding: 0 15px; }
+      .article-container { padding: 1.5rem; }
+      .article-title { font-size: 1.4rem; }
     }
   </style>
 </head>
@@ -134,24 +221,34 @@
     </nav>
   </header>
 
-  <main class="magazine-main">
-    <article class="magazine-header">
-      <div class="magazine-date">DECEMBER 19, 2025</div>
-      <h1 class="magazine-title">ドローンプログラミングの授業に参加しました</h1>
+  <main class="blog-main">
+    <article class="article-container">
+      
+      <div class="article-header">
+        <div class="meta-info">
+          <span class="article-date">2025.12.19</span>
+        </div>
+        <h1 class="article-title">ドローンプログラミングの授業に参加しました</h1>
+      </div>
+
+      <div class="image-container">
+        <img src="1564687654687y7.jpg" alt="ドローン実習の様子" class="magazine-hero-image">
+      </div>
+
+      <div class="article-content">
+        <p>
+          本日は、鎮西学院大学にて行われたドローンプログラミングの授業に参加しました。授業では、<strong>Scratch</strong> と <strong>Python</strong> の二つのプログラミング環境を用い、ドローンの基本的な飛行制御について学習しました。Scratchでは視覚的に命令を組み立てながら動作の流れを理解し、Pythonではコードを記述することで、より実践的な制御方法を学ぶことができました。
+        </p>
+        <p>
+          実際のドローンの挙動とプログラムの関係を確認しながら進められたため、プログラミングによって機体を制御する仕組みへの理解が深まりました。
+        </p>
+      </div>
+
+      <div class="back-btn-container">
+        <a href="./daily.html" class="back-btn">← BACK TO LIST</a>
+      </div>
+
     </article>
-
-    <div class="image-container">
-      <img src="1564687654687y7.jpg" alt="ドローン実習の様子" class="magazine-hero-image">
-    </div>
-
-    <div class="magazine-content">
-      <p>
-        本日は、鎮西学院大学にて行われたドローンプログラミングの授業に参加しました。授業では、Scratch と Python の二つのプログラミング環境を用い、ドローンの基本的な飛行制御について学習しました。Scratchでは視覚的に命令を組み立てながら動作の流れを理解し、Pythonではコードを記述することで、より実践的な制御方法を学ぶことができました。
-      </p>
-      <p>
-        実際のドローンの挙動とプログラムの関係を確認しながら進められたため、プログラミングによって機体を制御する仕組みへの理解が深まりました。
-      </p>
-    </div>
   </main>
 
   <footer>
